@@ -15,3 +15,11 @@ Missão **OFFBOARD** com PX4/ROS 2: visita os pontos **A → B → C** (hold 10s
 cd ~/ros_ws
 source /opt/ros/jazzy/setup.bash
 colcon build --symlink-install --packages-select my_drone_mission_cpp --event-handlers console_direct+
+
+Fluxo da missão:
+IDLE → START_OFFBOARD → SET_OFFBOARD → ARM → TAKEOFF
+→ NAVIGATE(A/B/C) ↔ HOLD(10s)
+↘ (SOC<90%) RETURN_HOME_CHARGE → LAND_FOR_CHARGE → RECHARGE_WAIT (SOC≥95%)
+→ RESUME_START_OFFBOARD → RESUME_SET_OFFBOARD → RESUME_ARM → RESUME_TAKEOFF
+→ NAVIGATE/HOLD (continua)
+→ FINAL_RETURN → FINAL_LAND → DONE
